@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<form th:action="@{/createUser}"
+      th:object="${newUser}" method="POST">
+    Name:
+    <input type="text" th:field="*{name}" />
+    <br/>
+    Email:
+    <input type="text" th:field="*{email}" />
+    <br/>
+    <input type="submit" value="Create" />
+    <br/>
+</form>
+
+<br/>
+
+</body>
+</html>
