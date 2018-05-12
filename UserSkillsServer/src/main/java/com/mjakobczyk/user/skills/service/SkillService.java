@@ -12,7 +12,7 @@ import java.util.List;
 public class SkillService {
 
     @Autowired
-    SkillRepository skillRepository;
+    private SkillRepository skillRepository;
 
     public Skill createSkill(@Valid Skill skill) {
         return skillRepository.save(skill);

@@ -15,7 +15,7 @@ import java.util.List;
 public class SkillController {
 
     @Autowired
-    SkillService skillService;
+    private SkillService skillService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

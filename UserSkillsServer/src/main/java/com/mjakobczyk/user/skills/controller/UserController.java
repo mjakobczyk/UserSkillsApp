@@ -22,7 +22,7 @@ import java.util.UUID;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
