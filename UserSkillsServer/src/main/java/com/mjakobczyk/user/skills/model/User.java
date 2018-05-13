@@ -34,9 +34,6 @@ public class User {
 
     private String password;
 
-//    @OneToOne(fetch = FetchType.LAZY,
-//            cascade =  CascadeType.ALL,
-//            mappedBy = "user")
     @OneToOne(cascade =  CascadeType.ALL)
     private Details details;
 

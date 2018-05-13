@@ -4,11 +4,11 @@ public class SkillDTO {
 
     private int id;
 
-    private String skillname;
+    private String skillName;
 
-    public SkillDTO(int id, String skillname) {
+    public SkillDTO(int id, String skillName) {
         this.id = id;
-        this.skillname = skillname;
+        this.skillName = skillName;
     }
 
     public int getId() {
@@ -20,10 +20,10 @@ public class SkillDTO {
     }
 
     public String getSkillname() {
-        return skillname;
+        return skillName;
     }
 
-    public void setSkillname(String skillname) {
-        this.skillname = skillname;
+    public void setSkillname(String skilName) {
+        this.skillName = skillName;
     }
 }

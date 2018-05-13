@@ -1,12 +1,13 @@
 package com.mjakobczyk.user.skills.model.dto;
 
 import java.util.List;
+import java.util.UUID;
 
 public class SaveSkillsRequest {
 
     private List<SkillDTO> skillDTOList;
 
-    private String userId;
+    private UUID userId;
 
     public List<SkillDTO> getSkillDTOList() {
         return skillDTOList;
@@ -16,11 +17,11 @@ public class SaveSkillsRequest {
         this.skillDTOList = skillDTOList;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 }

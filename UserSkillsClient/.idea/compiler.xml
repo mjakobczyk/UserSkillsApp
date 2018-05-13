@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="UserSkillsRESTApp" />
+        <module name="UserSkillsRESTClient" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="UserSkillsRESTApp" target="1.8" />
+      <module name="UserSkillsRESTClient" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
