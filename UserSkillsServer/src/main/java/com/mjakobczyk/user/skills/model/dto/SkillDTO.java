@@ -6,11 +6,6 @@ public class SkillDTO {
 
     private String skillName;
 
-    public SkillDTO(int id, String skillName) {
-        this.id = id;
-        this.skillName = skillName;
-    }
-
     public int getId() {
         return id;
     }

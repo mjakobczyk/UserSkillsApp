@@ -10,7 +10,7 @@ public class UserDTO {
 
     private String name;
 
-    private String password;
+    private UUID password;
 
     public UUID getId() {
         return id;
@@ -36,11 +36,11 @@ public class UserDTO {
         this.name = name;
     }
 
-    public String getPassword() {
+    public UUID getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(UUID password) {
         this.password = password;
     }
 }

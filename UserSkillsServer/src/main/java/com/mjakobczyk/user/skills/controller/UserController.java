@@ -65,6 +65,11 @@ public class UserController {
             Details details = userService.getDetailsByUserId(id);
             ModelMapper modelMapper = new ModelMapper();
             DetailsFullDTO detailsFullDTO = modelMapper.map(details, DetailsFullDTO.class);
+            User user = userService.getUserById(id);
+            UserFullDTO userFullDTO = modelMapper.map(user, UserFullDTO.class);
+            userFullDTO.setSkills(user.getSkills());
+            if (user.getSkills() != null) System.out.println(user.getSkills());
+            detailsFullDTO.setUserFullDTO(userFullDTO);
             return ResponseEntity.ok(detailsFullDTO);
         }
         catch (ResourceNotFoundException e) {
@@ -102,7 +107,7 @@ public class UserController {
     @PutMapping("/skills")
     public ResponseEntity<?> updateUserSkills(@Valid @RequestBody SaveSkillsRequest saveSkillsRequest) {
         try {
-            List<Skill> skillList = skillService.getSkillListFromSaveSkillsRequest(saveSkillsRequest.getSkillDTOList());
+            List<Skill> skillList = skillService.getSkillListFromSaveSkillsRequest(saveSkillsRequest.getSkillsIds());
             User user = userService.getUserById(saveSkillsRequest.getUserId());
 
             if (skillList == null || user == null) {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import javax.xml.ws.Response;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +41,8 @@ public class UserService {
         return user.getDetails();
     }
 
-    public ResponseEntity<?> updateDetailsByUserId(UUID userId, @Valid Details details) {
+    public ResponseEntity<?> updateDetailsByUserId(UUID userId,
+                                                   @Valid Details details) {
         User user = getUserById(userId);
 
         if (user == null) {
@@ -71,11 +73,18 @@ public class UserService {
             return ResponseEntity.status(404).build();
         }
 
-         for (Skill temp : skills) {
-            user.getSkills().add(temp);
-         }
+        if (user.getSkills() == null) {
+            user.setSkills(new ArrayList<>());
+        }
 
+        ArrayList<Skill> skillsFromUser = user.getSkills();
+        skillsFromUser.addAll(skills);
+
+         user.setSkills(skillsFromUser);
+
+        System.out.println("Saving user!");
+        //userRepository.save(user);
+        System.out.println("Saved user!");
         return ResponseEntity.status(200).build();
     }
-
 }

@@ -1,7 +1,9 @@
 package com.mjakobczyk.user.skills.controller;
 
 import com.mjakobczyk.user.skills.model.Skill;
+import com.mjakobczyk.user.skills.model.dto.SkillNewDTO;
 import com.mjakobczyk.user.skills.service.SkillService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,9 @@ public class SkillController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Skill> createSkill(@Valid @RequestBody Skill skill) {
+    public ResponseEntity<Skill> createSkill(@Valid @RequestBody SkillNewDTO skillNewDTO) {
+        ModelMapper modelMapper = new ModelMapper();
+        Skill skill = modelMapper.map(skillNewDTO, Skill.class);
         return ResponseEntity.ok(skillService.createSkill(skill));
     }
 

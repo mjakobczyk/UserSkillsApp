@@ -4,10 +4,6 @@ public class SkillNewDTO {
 
     private String skillName;
 
-    public SkillNewDTO(String skillName) {
-        this.skillName = skillName;
-    }
-
     public String getSkillName() {
         return skillName;
     }

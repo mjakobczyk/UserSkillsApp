@@ -32,19 +32,18 @@ public class SkillService {
                 .orElseThrow(() -> new ResourceNotFoundException("Skill", "id", id));
     }
 
-    public List<Skill> getSkillListFromSaveSkillsRequest(List<SkillDTO> skillDTOList) {
-        if (skillDTOList == null) {
+    public List<Skill> getSkillListFromSaveSkillsRequest(List<Integer> skillsIds) {
+        if (skillsIds == null) {
             return null;
         }
 
         List<Skill> skillList = new ArrayList<>();
 
-        for (SkillDTO temp : skillDTOList) {
-            Skill skill = getSkillById(temp.getId());
+        for (int temp : skillsIds) {
+            Skill skill = getSkillById(temp);
             skillList.add(skill);
         }
 
         return skillList;
     }
-
 }

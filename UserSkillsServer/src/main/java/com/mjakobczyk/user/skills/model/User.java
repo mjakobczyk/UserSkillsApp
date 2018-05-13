@@ -32,17 +32,22 @@ public class User {
     @NotEmpty
     private String name;
 
+    @Type(type = "pg-uuid")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(columnDefinition = "uuid")
     private String password;
 
     @OneToOne(cascade =  CascadeType.ALL)
     private Details details;
 
+    private ArrayList<Skill> skills;
+
     public User() {
         Details details = new Details();
         this.setDetails(details);
+        this.skills = new ArrayList<>();
     }
-
-    private ArrayList<Skill> skills;
 
     public UUID getId() {
         return id;

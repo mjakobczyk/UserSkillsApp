@@ -42,16 +42,6 @@ public class Details {
     @Column(name = "year_of_study")
     private int yearOfStudy;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", nullable = false)
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private User user;
-
-    public Details() {
-
-    }
-
     public String getFieldOfStudy() {
         return fieldOfStudy;
     }
@@ -100,11 +90,4 @@ public class Details {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

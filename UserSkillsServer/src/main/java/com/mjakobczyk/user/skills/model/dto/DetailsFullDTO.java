@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class DetailsFullDTO {
 
-    private UUID id;
+    private UUID detailsId;
 
     private String fieldOfStudy;
 
@@ -16,16 +16,24 @@ public class DetailsFullDTO {
 
     private String university;
 
-    private User user;
+    private UserFullDTO userFullDTO;
 
     private int yearOfStudy;
 
-    public UUID getId() {
-        return id;
+    public UUID getDetailsId() {
+        return detailsId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setDetailsId(UUID detailsId) {
+        this.detailsId = detailsId;
+    }
+
+    public UserFullDTO getUserFullDTO() {
+        return userFullDTO;
+    }
+
+    public void setUserFullDTO(UserFullDTO userFullDTO) {
+        this.userFullDTO = userFullDTO;
     }
 
     public String getFieldOfStudy() {
@@ -58,14 +66,6 @@ public class DetailsFullDTO {
 
     public void setUniversity(String university) {
         this.university = university;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public int getYearOfStudy() {

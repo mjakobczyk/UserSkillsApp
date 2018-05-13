@@ -5,16 +5,16 @@ import java.util.UUID;
 
 public class SaveSkillsRequest {
 
-    private List<SkillDTO> skillDTOList;
+    private List<Integer> skillsIds;
 
     private UUID userId;
 
-    public List<SkillDTO> getSkillDTOList() {
-        return skillDTOList;
+    public List<Integer> getSkillsIds() {
+        return skillsIds;
     }
 
-    public void setSkillDTOList(List<SkillDTO> skillDTOList) {
-        this.skillDTOList = skillDTOList;
+    public void setSkillsIdskillsIds(List<Integer> skillsIds) {
+        this.skillsIds = skillsIds;
     }
 
     public UUID getUserId() {
