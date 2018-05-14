@@ -77,14 +77,11 @@ public class UserService {
             user.setSkills(new ArrayList<>());
         }
 
-        ArrayList<Skill> skillsFromUser = user.getSkills();
-        skillsFromUser.addAll(skills);
+        for (Skill temp : skills) {
+            user.getSkills().add(temp);
+        }
 
-         user.setSkills(skillsFromUser);
-
-        System.out.println("Saving user!");
-        //userRepository.save(user);
-        System.out.println("Saved user!");
+        userRepository.save(user);
         return ResponseEntity.status(200).build();
     }
 }
