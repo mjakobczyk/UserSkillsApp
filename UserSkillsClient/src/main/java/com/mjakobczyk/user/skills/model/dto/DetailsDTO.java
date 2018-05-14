@@ -8,7 +8,7 @@ public class DetailsDTO {
 
     private String firstName;
 
-    private String id;
+    private UUID id;
 
     private String lastName;
 
@@ -16,21 +16,11 @@ public class DetailsDTO {
 
     private int yearOfStudy;
 
-    public DetailsDTO(String fieldOfStudy, String firstName, String id, String lastName,
-                      String university, int yearOfStudy) {
-        this.fieldOfStudy = fieldOfStudy;
-        this.firstName = firstName;
-        this.id = id;
-        this.lastName = lastName;
-        this.university = university;
-        this.yearOfStudy = yearOfStudy;
-    }
-
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

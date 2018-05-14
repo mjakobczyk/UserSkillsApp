@@ -1,12 +1,10 @@
 package com.mjakobczyk.user.skills.model.dto;
 
-import com.mjakobczyk.user.skills.model.User;
-
 import java.util.UUID;
 
 public class DetailsFullDTO {
 
-    private String id;
+    private UUID detailsId;
 
     private String fieldOfStudy;
 
@@ -16,27 +14,24 @@ public class DetailsFullDTO {
 
     private String university;
 
-    private User user;
+    private UserFullDTO userFullDTO;
 
     private int yearOfStudy;
 
-    public DetailsFullDTO(String id, String fieldOfStudy, String firstName, String lastName,
-                          String university, User user, int yearOfStudy) {
-        this.id = id;
-        this.fieldOfStudy = fieldOfStudy;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.university = university;
-        this.user = user;
-        this.yearOfStudy = yearOfStudy;
+    public UUID getDetailsId() {
+        return detailsId;
     }
 
-    public String getId() {
-        return id;
+    public void setDetailsId(UUID detailsId) {
+        this.detailsId = detailsId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public UserFullDTO getUserFullDTO() {
+        return userFullDTO;
+    }
+
+    public void setUserFullDTO(UserFullDTO userFullDTO) {
+        this.userFullDTO = userFullDTO;
     }
 
     public String getFieldOfStudy() {
@@ -69,14 +64,6 @@ public class DetailsFullDTO {
 
     public void setUniversity(String university) {
         this.university = university;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public int getYearOfStudy() {

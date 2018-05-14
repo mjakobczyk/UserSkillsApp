@@ -4,30 +4,19 @@ import java.util.UUID;
 
 public class UserDTO {
 
-    private String id;
+    private UUID id;
 
     private String email;
 
     private String name;
 
-    private String password;
+    private UUID password;
 
-    public UserDTO() {
-
-    }
-
-    public UserDTO(String id, String email, String name, String password) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.password = password;
-    }
-
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -47,11 +36,11 @@ public class UserDTO {
         this.name = name;
     }
 
-    public String getPassword() {
+    public UUID getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(UUID password) {
         this.password = password;
     }
 }

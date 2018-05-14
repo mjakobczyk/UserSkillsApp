@@ -1,9 +1,7 @@
 package com.mjakobczyk.user.skills.service;
 
-import com.mjakobczyk.user.skills.model.Skill;
 import com.mjakobczyk.user.skills.model.dto.SkillDTO;
 import com.mjakobczyk.user.skills.model.dto.SkillNewDTO;
-import com.mjakobczyk.user.skills.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

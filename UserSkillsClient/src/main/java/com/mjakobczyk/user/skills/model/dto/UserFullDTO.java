@@ -1,13 +1,11 @@
 package com.mjakobczyk.user.skills.model.dto;
 
-import com.mjakobczyk.user.skills.model.Skill;
-
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class UserFullDTO {
 
-    private String id;
+    private UUID id;
 
     private String email;
 
@@ -15,26 +13,13 @@ public class UserFullDTO {
 
     private String password;
 
-    ArrayList<Skill> skills;
+    ArrayList<SkillDTO> skillDTOS;
 
-    public UserFullDTO() {
-
-    }
-
-    public UserFullDTO(String id, String email, String name, String password,
-                       ArrayList<Skill> skills) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.password = password;
-        this.skills = skills;
-    }
-
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -62,11 +47,11 @@ public class UserFullDTO {
         this.password = password;
     }
 
-    public ArrayList<Skill> getSkills() {
-        return skills;
+    public ArrayList<SkillDTO> getSkillDTOS() {
+        return skillDTOS;
     }
 
-    public void setSkills(ArrayList<Skill> skills) {
-        this.skills = skills;
+    public void setSkillDTOS(ArrayList<SkillDTO> skillDTOS) {
+        this.skillDTOS = skillDTOS;
     }
 }

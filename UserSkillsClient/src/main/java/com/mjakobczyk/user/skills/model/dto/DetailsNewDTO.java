@@ -14,15 +14,6 @@ public class DetailsNewDTO {
 
     private int yearOfStudy;
 
-    public DetailsNewDTO(String fieldOfStudy, String firstName, String lastName,
-                         String university, int yearOfStudy) {
-        this.fieldOfStudy = fieldOfStudy;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.university = university;
-        this.yearOfStudy = yearOfStudy;
-    }
-
     public String getFieldOfStudy() {
         return fieldOfStudy;
     }
