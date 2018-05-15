@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Add skill</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<center>
+    <h2>Add skill</h2>
+
+    <form th:action="@{/addSkill}"
+          th:object="${newSkill}" method="POST">
+
+        <h3>Fill data about new skill</h3>
+
+        <h3>Name:</h3>
+
+        <input type="text" th:field="*{name}" />
+        <br/>
+
+        <input type="submit" value="Add new skill" />
+        <br/>
+
+        <h3 th:if="${addUserFieldsError != null}"
+            th:text="${addUserFieldsError}"}></h3>
+
+        <h3 th:if="${addUserEmailError != null}"
+            th:text="${addUserEmailError}"}></h3>
+
+        <h3 th:if="${createdUser != null &&
+            createdUser.id != null}"
+            th:text="${createdUser.id}"}></h3>
+
+    </form>
+
+    <br/><br/><br/>
+    <a th:href="@{index}">Back to main page</a>
+
+</center>
+</body>
+
+</html>

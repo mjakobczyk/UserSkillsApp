@@ -6,6 +6,18 @@ h2 {
     color:#FF0000;
 }
 
+h3 {
+    color:#511515;
+}
+
+error {
+    color:#D11D1D
+}
+
+positive {
+    color:#53A232
+}
+
 table {
     border-collapse: collapse;
 }

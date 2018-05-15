@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<center>
+    <h2>Add user</h2>
+
+    <form th:action="@{/addUser}"
+          th:object="${newUser}" method="POST">
+
+        <h3>Fill data about new user:</h3>
+
+        <h3>Name:</h3>
+
+        <input type="text" th:field="*{name}" />
+        <br/>
+
+        <h3>Email:</h3>
+
+        <input type="text" th:field="*{email}" />
+        <br/>
+
+        <br/>
+        <input type="submit" value="Create user" />
+        <br/>
+
+        <error th:if="${fieldsError != null}"
+            th:text="${fieldsError}"}></error>
+
+        <error th:if="${addUserEmailError != null}"
+            th:text="${addUserEmailError}"}></error>
+
+        <positive th:if="${createdUser != null &&
+            createdUser.id != null}"
+            th:text="${createdUser.id}"}></positive>
+
+    </form>
+
+    <br/><br/><br/>
+    <a th:href="@{index}">Back to main page</a>
+
+</center>
+</body>
+</html>

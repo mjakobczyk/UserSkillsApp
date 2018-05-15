@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<center>
+    <h2>Show information</h2>
+
+    <form th:action="@{/showInformation}"
+          th:object="${userId}" th:object="${userToShow}"
+          method="GET">
+
+        <h3>Type user's ID:</h3>
+
+        <input type="text" field="userId" />
+        <br/>
+
+        <br/>
+        <input type="submit" value="Show user" />
+        <br/>
+
+        <error th:if="${fieldsError != null}"
+               th:text="${fieldsError}"}></error>
+
+        <error th:if="${invalidIdError != null}"
+               th:text="${invalidIdError}"}></error>
+
+        <positive th:if="${userToShow} != null"
+                  th:text="${userToShow.name}"}></positive>
+
+    </form>
+
+    <br/><br/><br/>
+    <a th:href="@{index}">Back to main page</a>
+
+</center>
+</body>
+
+</html>

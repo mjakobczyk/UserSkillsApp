@@ -23,19 +23,99 @@ public class UserController {
     @Value("${welcome.message}")
     private String welcomeMessage;
 
+    @Value("${fieldsError.message}")
+    private String fieldsError;
+
+    @Value("${addUserEmailError.message}")
+    private String addUserEmailError;
+
+    @Value("${invalidIdError.message}")
+    private String invalidIdError;
+
+
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String show(Model model) {
-        //model.addAttribute("newUser", new UserNewDTO());
         model.addAttribute("welcomeMessage", welcomeMessage);
         return "index";
     }
 
-    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
-    public String createUser(Model model,
-                             @Valid @ModelAttribute("newUser") UserNewDTO userNewDTO) {
-        userService.createUser(userNewDTO);
-        return "users";
+    @RequestMapping(value = "/mainUsers", method = RequestMethod.GET)
+    public String users(Model model) {
+        model.addAttribute("welcomeMessage", welcomeMessage);
+        return "mainUsers";
     }
+
+    @RequestMapping(value = "/addUser", method = RequestMethod.GET)
+    public String showCreatedUser(Model model) {
+        model.addAttribute("newUser", new UserNewDTO());
+        return "addUser";
+    }
+
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public void createUser(Model model,
+                             @Valid @ModelAttribute("newUser") UserNewDTO userNewDTO) {
+        if (    userNewDTO.getName() == null    ||
+                userNewDTO.getName() == ""      ||
+                userNewDTO.getEmail() == null   ||
+                userNewDTO.getEmail() == "") {
+            model.addAttribute("fieldsError", fieldsError);
+            return;
+        }
+        if (!(userNewDTO.getEmail().contains("@"))) {
+            model.addAttribute("addUserEmailError", addUserEmailError);
+            return;
+        }
+        UserDTO userDTO = userService.createUser(userNewDTO);
+        model.addAttribute("createdUser", userDTO);
+        return;
+    }
+
+    @RequestMapping(value = "/showInformation", method = RequestMethod.GET)
+    public String showUserInformation(Model model,
+                                      @Valid @ModelAttribute("userId") String userId) {
+        model.addAttribute("userId", userId);
+        if (userId == null || userId == "") {
+            model.addAttribute("fieldsError", fieldsError);
+        }
+        UserDTO userDTO = userService.getUserInformation(userId);
+        if (userDTO == null) {
+            model.addAttribute("invalidIdError", invalidIdError);
+        }
+        model.addAttribute("userToShow", userDTO);
+        return "showInformation";
+    }
+
+    @RequestMapping(value = "/showDetails", method = RequestMethod.GET)
+    public String showUserDetails(Model model) {
+        return "showDetails";
+    }
+
+    @RequestMapping(value = "/showAllDetails", method = RequestMethod.GET)
+    public String showAllUserDetails(Model model) {
+        return "showAllDetails";
+    }
+
+    @RequestMapping(value = "/updateDetails", method = RequestMethod.GET)
+    public String updateUserDetailsGet(Model model) {
+        return "updateDetails";
+    }
+
+    @RequestMapping(value = "/updateDetails", method = RequestMethod.PUT)
+    public void updateUserDetailsPost(Model model) {
+        return;
+    }
+
+    @RequestMapping(value = "/updateSkills", method = RequestMethod.GET)
+    public String updateUserSkillsGet(Model model) {
+        return "updateSkills";
+    }
+
+    @RequestMapping(value = "/updateSkills", method = RequestMethod.PUT)
+    public void updateUserSkillsPost(Model model) {
+        return;
+    }
+
+
 
 //    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)

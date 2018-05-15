@@ -1,5 +1,8 @@
 package com.mjakobczyk.user.skills.service;
 
+import com.mjakobczyk.user.skills.model.dto.DetailsDTO;
+import com.mjakobczyk.user.skills.model.dto.DetailsFullDTO;
+import com.mjakobczyk.user.skills.model.dto.UserDTO;
 import com.mjakobczyk.user.skills.model.dto.UserNewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,13 +35,33 @@ public class UserService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public UserNewDTO createUser(@Valid UserNewDTO userNewDTO) {
-        System.out.println(createUserResource);
-        System.out.println(userNewDTO.getEmail());
-        System.out.println(userNewDTO.getName());
-        return restTemplate.postForObject(createUserResource, userNewDTO,
-                UserNewDTO.class);
+    public UserDTO createUser(@Valid UserNewDTO userNewDTO) {
+        return restTemplate.postForObject(createUserResource,
+                userNewDTO,
+                UserDTO.class);
     }
 
+    public UserDTO getUserInformation(String userId) {
+        String finalResource = getUserByIdResource + "\\" + userId;
+        return restTemplate.getForObject(finalResource,
+                UserDTO.class);
+    }
 
+    public DetailsDTO getUserDetails() {
+        return restTemplate.getForObject(getDetailsResource,
+                DetailsDTO.class);
+    }
+
+    public DetailsFullDTO getUserFullDetails() {
+        return restTemplate.getForObject(getAllDetailsResource,
+                DetailsFullDTO.class);
+    }
+
+    public void updateUserDetails() {
+        // TODO
+    }
+
+    public void updateUserSkills() {
+        // TODO
+    }
 }

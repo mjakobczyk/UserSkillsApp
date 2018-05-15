@@ -2,24 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Users</title>
+    <title>Welcome</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
+    <center>
+        <h1 th:utext="${welcomeMessage}"></h1>
 
-<form th:action="@{/createUser}"
-      th:object="${newUser}" method="POST">
-    <h2>Name:</h2>
-    <input type="text" th:field="*{name}" />
-    <br/>
-    <h2>Email:</h2>
-    <input type="text" th:field="*{email}" />
-    <br/>
-    <input type="submit" value="Create" />
-    <br/>
-</form>
+        <h2>Creater new user</h2>
 
-<br/>
+        <a th:href="@{/addUser}">Create user</a><br/>
 
+        <p>If you have already created one:</p><br/>
+
+        <input type="text"/><br/>
+
+        <h3>
+        <a th:href="@{/skills}">Show personal information</a><br/>
+
+        <a th:href="@{/skills}">Show details</a><br/>
+
+        <a th:href="@{/skills}">Show all information</a><br/>
+
+        </h3>
+
+        <br/><br/><br/>
+        <a th:href="@{index}">Back to main page</a>
+
+    </center>
 </body>
+
 </html>

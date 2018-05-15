@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <center>
+        <h1 th:utext="${welcomeMessage}"></h1>
+
+        <h2>New to the website?</h2>
+
+        <h3>
+            <a th:href="@{/addUser}">Create user</a><br/>
+        </h3>
+
+        <h2>Already got user?</h2><br/>
+
+        <h3>
+            <a th:href="@{/showInformation}">Show personal information</a><br/>
+
+            <a th:href="@{/showDetails}">Show details</a><br/>
+
+            <a th:href="@{/showAllDetails}">Show all information</a><br/>
+
+            <a th:href="@{/updateDetails}">Update details</a><br/>
+
+            <a th:href="@{/updateSkills}">Update skills</a><br/>
+        </h3>
+
+        <br/><br/><br/>
+        <a th:href="@{index}">Back to main page</a>
+
+    </center>
+</body>
+
+</html>

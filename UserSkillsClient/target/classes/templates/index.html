@@ -9,7 +9,20 @@
     <center>
         <h1 th:utext="${welcomeMessage}"></h1>
 
-        <h2>Choose action to perform:</h2>
+        <h2>Choose action to perform</h2>
+
+        <h3>
+            <a th:href="@{/mainSkills}">Manage skills</a><br/><br/>
+
+            <a th:href="@{/mainUsers}">Manage users</a><br/><br/>
+        </h3>
+
+        <br/><br/><br/>
+        <a th:href="@{index}">Back to main page</a>
+
+        <h3>Michał Jakóbczyk | github.com/mjakobczyk |
+            michal.jakob.96@gmail.com</h3>
+
     </center>
 </body>
 
