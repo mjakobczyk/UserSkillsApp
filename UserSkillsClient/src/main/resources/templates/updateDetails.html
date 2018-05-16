@@ -9,6 +9,55 @@
 <center>
     <h2>Update details</h2>
 
+    <form th:action="@{/updateDetails}"
+          th:object="${details}" th:method="PUT">
+
+        <h3>User's Id:</h3>
+
+        <input type="text" th:field="${details.id}"/>
+        <br/>
+
+        <h3>Field of study:</h3>
+
+        <input type="text" th:field="${details.fieldOfStudy}" />
+        <br/>
+
+        <h3>First name:</h3>
+
+        <input type="text" th:field="${details.firstName}" />
+        <br/>
+
+        <h3>Last name:</h3>
+
+        <input type="text" th:field="${details.lastName}" />
+        <br/>
+
+        <h3>University:</h3>
+
+        <input type="text" th:field="${details.university}" />
+        <br/>
+
+        <h3>Year of study:</h3>
+
+        <input type="number" th:field="${details.yearOfStudy}" />
+        <br/>
+
+        <br/>
+        <input type="submit" value="Update details"/>
+        <br/>
+
+        <error th:if="${invalidIdError != null}"
+               th:text="${invalidIdError}"}></error>
+
+        <positive th:if="${details != null &&
+            details.id != null &&
+            fieldsError == null}">
+
+            </br>Details updated successfully!</br>
+        </positive>
+
+    </form>
+
     <br/><br/><br/>
     <a th:href="@{index}">Back to main page</a>
 

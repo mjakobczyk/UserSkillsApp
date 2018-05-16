@@ -15,7 +15,7 @@ public class UserFullDTO {
 
     private String password;
 
-    ArrayList<Skill> skills;
+    ArrayList<SkillDTO> skills;
 
     public UUID getId() {
         return id;
@@ -49,11 +49,11 @@ public class UserFullDTO {
         this.password = password;
     }
 
-    public ArrayList<Skill> getSkills() {
+    public ArrayList<SkillDTO> getSkills() {
         return skills;
     }
 
-    public void setSkills(ArrayList<Skill> skills) {
+    public void setSkills(ArrayList<SkillDTO> skills) {
         this.skills = skills;
     }
 }

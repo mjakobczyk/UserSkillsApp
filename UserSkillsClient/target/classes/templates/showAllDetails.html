@@ -39,6 +39,21 @@
                                  th:text="${details.yearOfStudy}"></span></br>
             User Id: <span th:if="${user != null && user.getId() != null}"
                       th:text="${user.getId()}"></span></br>
+            Email: <span th:if="${user != null && user.getEmail() != null}"
+                         th:text="${user.getEmail() }"></span></br>
+            Name: <span th:if="${user != null && user.getName() != null}"
+                        th:text="${user.getName()}"></span></br>
+            Password: <span th:if="${user != null && user.getPassword() != null}"
+                            th:text="${user.getPassword()}"></span></br>
+            Skills:
+            <th:block th:each="skill : ${skills}">
+                <tr>
+                    <span th:text="${skill.getId()}" />
+                    <span text="." />
+                    <span th:text="${skill.getSkillName()}" /></br>
+                </tr>
+            </th:block>
+
 
         </positive>
     </form>

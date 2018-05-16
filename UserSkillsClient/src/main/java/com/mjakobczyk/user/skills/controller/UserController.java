@@ -1,6 +1,5 @@
 package com.mjakobczyk.user.skills.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mjakobczyk.user.skills.model.dto.*;
 import com.mjakobczyk.user.skills.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,7 +127,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/showAllDetails", method = RequestMethod.POST)
-    public void showAllUserDetailsPost(@Valid @ModelAttribute("userDTO") UserDTO userDTO,
+    public void showAllUserDetailsPost(@Valid @ModelAttribute("user") UserDTO userDTO,
                                        BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors() ||
                 userDTO == null ||
@@ -144,7 +143,7 @@ public class UserController {
             model.addAttribute("details", detailsFullDTO);
             UserFullDTO userFullDTO = detailsFullDTO.getUserFullDTO();
             model.addAttribute("user", userFullDTO);
-            List<SkillDTO> skillDTOList = userFullDTO.getSkillDTOS();
+            List<SkillDTO> skillDTOList = userFullDTO.getSkillDTOList();
             model.addAttribute("skills", skillDTOList);
         }
 
@@ -153,16 +152,53 @@ public class UserController {
 
     @RequestMapping(value = "/updateDetails", method = RequestMethod.GET)
     public String updateUserDetailsGet(Model model) {
+        model.addAttribute("details", new DetailsDTO());
         return "updateDetails";
     }
 
     @RequestMapping(value = "/updateDetails", method = RequestMethod.PUT)
-    public void updateUserDetailsPost(Model model) {
+    public void updateUserDetailsPost(@Valid @ModelAttribute("details") DetailsDTO detailsDTO,
+                                      BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors() ||
+                detailsDTO == null ||
+                detailsDTO.getId() == null ||
+                detailsDTO.getId().equals("") ||
+                detailsDTO.getId().toString().equals("") ||
+                detailsDTO.getId().toString() == null ||
+                detailsDTO.getId().toString().length() < 2) {
+            model.addAttribute("invalidIdError", invalidIdError);
+        }
+        else {
+            if (detailsDTO.getFieldOfStudy() == null) {
+                detailsDTO.setFieldOfStudy("");
+            }
+            if (detailsDTO.getFirstName() == null) {
+                detailsDTO.setFirstName("");
+            }
+            if (detailsDTO.getLastName() == null) {
+                detailsDTO.setLastName("");
+            }
+            if (detailsDTO.getUniversity() == null) {
+                detailsDTO.setUniversity("");
+            }
+
+            DetailsNewDTO detailsNewDTO = new DetailsNewDTO();
+            detailsNewDTO.setFieldOfStudy(detailsDTO.getFieldOfStudy());
+            detailsNewDTO.setFirstName(detailsDTO.getFirstName());
+            detailsNewDTO.setLastName(detailsDTO.getLastName());
+            detailsNewDTO.setUniversity(detailsDTO.getUniversity());
+            detailsNewDTO.setYearOfStudy(detailsDTO.getYearOfStudy());
+
+            userService.updateUserDetails(detailsDTO.getId().toString(),
+                    detailsNewDTO);
+        }
+
         return;
     }
 
     @RequestMapping(value = "/updateSkills", method = RequestMethod.GET)
     public String updateUserSkillsGet(Model model) {
+        model.addAttribute("skills", new SaveSkillsRequest());
         return "updateSkills";
     }
 
@@ -170,98 +206,5 @@ public class UserController {
     public void updateUserSkillsPost(Model model) {
         return;
     }
-
-
-
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) {
-//        try {
-//            User tempUser = userService.createUser(user);
-//            ModelMapper modelMapper = new ModelMapper();
-//            UserDTO userDTO = modelMapper.map(tempUser, UserDTO.class);
-//            return ResponseEntity.ok(userDTO);
-//        }
-//        catch (ResourceNotFoundException e) {
-//            return ResponseEntity.status(404).build();
-//        }
-//    }
-//
-//    @GetMapping("/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<UserDTO> getUserDTOById(@PathVariable(value = "id") UUID id) {
-//        try {
-//            User user = userService.getUserById(id);
-//            ModelMapper modelMapper = new ModelMapper();
-//            UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-//            return ResponseEntity.ok(userDTO);
-//        }
-//        catch (ResourceNotFoundException e) {
-//            return ResponseEntity.status(404).build();
-//        }
-//    }
-//
-//    @GetMapping("/alldetails/{userId}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<DetailsFullDTO> getDetailsDTOByUserId(@PathVariable(value = "userId") UUID id) {
-//        try {
-//            Details details = userService.getDetailsByUserId(id);
-//            ModelMapper modelMapper = new ModelMapper();
-//            DetailsFullDTO detailsFullDTO = modelMapper.map(details, DetailsFullDTO.class);
-//            User user = userService.getUserById(id);
-//            UserFullDTO userFullDTO = modelMapper.map(user, UserFullDTO.class);
-//            userFullDTO.setSkills(user.getSkills());
-//            if (user.getSkills() != null) System.out.println(user.getSkills());
-//            detailsFullDTO.setUserFullDTO(userFullDTO);
-//            return ResponseEntity.ok(detailsFullDTO);
-//        }
-//        catch (ResourceNotFoundException e) {
-//            return ResponseEntity.status(404).build();
-//        }
-//    }
-//
-//    @GetMapping("/details/{userId}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ResponseEntity<DetailsDTO> getDetailsByUserId(@PathVariable(value = "userId") UUID userId) {
-//        try {
-//            Details details = userService.getDetailsByUserId(userId);
-//            ModelMapper modelMapper = new ModelMapper();
-//            DetailsDTO detailsDTO = modelMapper.map(details, DetailsDTO.class);
-//            return ResponseEntity.ok(detailsDTO);
-//        }
-//        catch (ResourceNotFoundException e) {
-//            return ResponseEntity.status(404).build();
-//        }
-//    }
-//
-//    @PutMapping("/details/{userId}")
-//    public ResponseEntity<?> updateDetailsByUserId(@PathVariable(value = "userId") UUID userId,
-//                                                   @Valid @RequestBody DetailsNewDTO detailsNewDTO) {
-//        try {
-//            ModelMapper modelMapper = new ModelMapper();
-//            Details details = modelMapper.map(detailsNewDTO, Details.class);
-//            return userService.updateDetailsByUserId(userId, details);
-//        }
-//        catch (ResourceNotFoundException e) {
-//            return ResponseEntity.status(404).build();
-//        }
-//    }
-//
-//    @PutMapping("/skills")
-//    public ResponseEntity<?> updateUserSkills(@Valid @RequestBody SaveSkillsRequest saveSkillsRequest) {
-//        try {
-//            List<Skill> skillList = skillService.getSkillListFromSaveSkillsRequest(saveSkillsRequest.getSkillsIds());
-//            User user = userService.getUserById(saveSkillsRequest.getUserId());
-//
-//            if (skillList == null || user == null) {
-//                return ResponseEntity.status(404).build();
-//            }
-//
-//            return userService.updateSkillsByUserId(user.getId(), skillList);
-//        }
-//        catch (ResourceNotFoundException e) {
-//            return ResponseEntity.status(404).build();
-//        }
-//    }
 
 }

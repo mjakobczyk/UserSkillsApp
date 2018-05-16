@@ -1,7 +1,5 @@
 package com.mjakobczyk.user.skills.model.dto;
 
-import java.util.UUID;
-
 public class DetailsNewDTO {
 
     private String fieldOfStudy;

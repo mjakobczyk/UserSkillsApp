@@ -14,11 +14,11 @@ public class SkillDTO {
         this.id = id;
     }
 
-    public String getSkillname() {
+    public String getSkillName() {
         return skillName;
     }
 
-    public void setSkillname(String skilName) {
+    public void setSkillName(String skillName) {
         this.skillName = skillName;
     }
 }
