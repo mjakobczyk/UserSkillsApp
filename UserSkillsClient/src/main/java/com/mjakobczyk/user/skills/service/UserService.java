@@ -60,10 +60,10 @@ public class UserService {
                 DetailsFullDTO.class, id);
     }
 
-    public ResponseEntity<DetailsNewDTO> updateUserDetails(@PathVariable(value = "userId") String id,
+    public DetailsNewDTO updateUserDetails(@PathVariable(value = "userId") String id,
                                                           @Valid @RequestBody DetailsNewDTO detailsNewDTO) {
         return restTemplate.exchange(updateDetailsResource, HttpMethod.PUT,
-                new HttpEntity<>(detailsNewDTO), DetailsNewDTO.class, id);
+                new HttpEntity<>(detailsNewDTO), DetailsNewDTO.class, id).getBody();
     }
 
     public SaveSkillsRequest updateUserSkills(@Valid @RequestBody SaveSkillsRequest saveSkillsRequest) {

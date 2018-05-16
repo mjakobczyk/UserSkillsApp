@@ -52,9 +52,9 @@ public class UserController {
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public void createUser(Model model,
                              @Valid @ModelAttribute("newUser") UserNewDTO userNewDTO) {
-        if (    userNewDTO.getName() == null    ||
-                userNewDTO.getName() == ""      ||
-                userNewDTO.getEmail() == null   ||
+        if(userNewDTO.getName() == null ||
+                userNewDTO.getName() == "" ||
+                userNewDTO.getEmail() == null ||
                 userNewDTO.getEmail() == "") {
             model.addAttribute("fieldsError", fieldsError);
             return;
@@ -127,7 +127,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/showAllDetails", method = RequestMethod.POST)
-    public void showAllUserDetailsPost(@Valid @ModelAttribute("user") UserDTO userDTO,
+    public void showAllUserDetailsPost(@Valid @ModelAttribute("userDTO") UserDTO userDTO,
                                        BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors() ||
                 userDTO == null ||
