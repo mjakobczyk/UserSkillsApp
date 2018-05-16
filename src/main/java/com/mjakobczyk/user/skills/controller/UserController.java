@@ -66,11 +66,14 @@ public class UserController {
             Details details = userService.getDetailsByUserId(id);
             ModelMapper modelMapper = new ModelMapper();
             DetailsFullDTO detailsFullDTO = modelMapper.map(details, DetailsFullDTO.class);
+
             User user = userService.getUserById(id);
             UserFullDTO userFullDTO = modelMapper.map(user, UserFullDTO.class);
+
             ArrayList<Skill> skills = user.getSkills();
             java.lang.reflect.Type targetListType = new TypeToken<List<SkillDTO>>() {}.getType();
             ArrayList<SkillDTO> skillDTOS = modelMapper.map(skills, targetListType);
+            
             userFullDTO.setSkills(skillDTOS);
             detailsFullDTO.setUserFullDTO(userFullDTO);
             return ResponseEntity.ok(detailsFullDTO);
