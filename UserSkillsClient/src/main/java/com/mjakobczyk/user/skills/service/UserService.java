@@ -7,6 +7,7 @@ import com.mjakobczyk.user.skills.model.dto.UserNewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
@@ -41,20 +42,19 @@ public class UserService {
                 UserDTO.class);
     }
 
-    public UserDTO getUserInformation(String userId) {
-        String finalResource = getUserByIdResource + "\\" + userId;
-        return restTemplate.getForObject(finalResource,
-                UserDTO.class);
+    public UserDTO getUserInformation(@PathVariable(value = "id") String id) {
+        return restTemplate.getForObject(getUserByIdResource,
+                UserDTO.class, id);
     }
 
-    public DetailsDTO getUserDetails() {
+    public DetailsDTO getUserDetails(@PathVariable(value = "userId") String id) {
         return restTemplate.getForObject(getDetailsResource,
-                DetailsDTO.class);
+                DetailsDTO.class, id);
     }
 
-    public DetailsFullDTO getUserFullDetails() {
+    public DetailsFullDTO getUserFullDetails(@PathVariable(value = "userId") String id) {
         return restTemplate.getForObject(getAllDetailsResource,
-                DetailsFullDTO.class);
+                DetailsFullDTO.class, id);
     }
 
     public void updateUserDetails() {

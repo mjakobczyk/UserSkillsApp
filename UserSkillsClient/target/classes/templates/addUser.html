@@ -35,8 +35,13 @@
             th:text="${addUserEmailError}"}></error>
 
         <positive th:if="${createdUser != null &&
-            createdUser.id != null}"
-            th:text="${createdUser.id}"}></positive>
+            createdUser.id != null &&
+            fieldsError == null &&
+            addUserEmailError == null}">
+
+            </br>User created succesfully!</br>
+            User Id: <td th:text="${createdUser.id}"}/>
+        </positive>
 
     </form>
 

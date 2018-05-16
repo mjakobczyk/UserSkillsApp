@@ -9,8 +9,24 @@
 <center>
     <h2>Show skills</h2>
 
-    <br/><br/><br/>
-    <a th:href="@{index}">Back to main page</a>
+    <form th:action="@{/showSkills}" th:object="${skills}"
+          method="GET">
+            <th:block th:each="skill : ${skills}">
+                <tr>
+                    <td th:text="${skill.getId()}"/></td>
+                    <td text="."/>
+                    <td th:text="${skill.getSkillName()}"/></td></br>
+                </tr>
+            </th:block>
+
+        <error th:if="${invalidIdError != null}"
+               th:text="${invalidIdError}"}>
+        </error>
+
+        <br/><br/><br/>
+        <a th:href="@{index}">Back to main page</a>
+    </form>
+
 
 </center>
 </body>

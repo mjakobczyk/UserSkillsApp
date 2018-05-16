@@ -12,25 +12,22 @@
     <form th:action="@{/addSkill}"
           th:object="${newSkill}" method="POST">
 
-        <h3>Fill data about new skill</h3>
+        <h3>Fill data about new skill:</h3>
 
-        <h3>Name:</h3>
+        <input type="text" th:field="*{skillName}" /><br/><br/>
 
-        <input type="text" th:field="*{name}" />
-        <br/>
+        <input type="submit" value="Create skill" /><br/>
 
-        <input type="submit" value="Add new skill" />
-        <br/>
+        <error th:if="${invalid != null}"
+               th:text="${invalid}"}></error>
 
-        <h3 th:if="${addUserFieldsError != null}"
-            th:text="${addUserFieldsError}"}></h3>
+        <positive th:if="${newSkill != null &&
+            newSkill.skillName != null &&
+            invalid == null}">
 
-        <h3 th:if="${addUserEmailError != null}"
-            th:text="${addUserEmailError}"}></h3>
-
-        <h3 th:if="${createdUser != null &&
-            createdUser.id != null}"
-            th:text="${createdUser.id}"}></h3>
+            </br>Skill added succesfully!</br>
+            Skill name: <td th:text="${newSkill.skillName}"}/></br>
+        </positive>
 
     </form>
 

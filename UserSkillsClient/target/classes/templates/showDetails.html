@@ -9,6 +9,36 @@
 <center>
     <h2>Show details</h2>
 
+    <form th:action="@{/showDetails}" th:object="${userDTO}"
+          method="POST">
+
+        <h3>Type user's ID:</h3>
+
+        <input type="text" th:field="*{id}"/>
+        <br/>
+
+        <h3><input type="submit" value="Show user" /></h3>
+
+        <error th:if="${invalidIdError != null}"
+               th:text="${invalidIdError}"}></error>
+
+        <positive th:if="${details != null &&
+            invalidIdError == null}" ></br>
+            Details Id: <span th:if="${details != null && details.id != null}"
+                              th:text="${details.id}"></span></br>
+            Field of study: <span th:if="${details != null && details.fieldOfStudy != null}"
+                         th:text="${details.fieldOfStudy}"></span></br>
+            First name: <span th:if="${details != null && details.firstName != null}"
+                        th:text="${details.firstName}"></span></br>
+            Last name: <span th:if="${details != null && details.lastName != null}"
+                            th:text="${details.lastName}"></span></br>
+            University: <span th:if="${details != null && details.university != null}"
+                            th:text="${details.university}"></span></br>
+            Year of study: <span th:if="${details != null && details.yearOfStudy != null}"
+                            th:text="${details.yearOfStudy}"></span></br>
+        </positive>
+    </form>
+
     <br/><br/><br/>
     <a th:href="@{index}">Back to main page</a>
 

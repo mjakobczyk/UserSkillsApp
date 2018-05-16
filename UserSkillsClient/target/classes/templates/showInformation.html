@@ -9,28 +9,26 @@
 <center>
     <h2>Show information</h2>
 
-    <form th:action="@{/showInformation}"
-          th:object="${userId}" th:object="${userToShow}"
-          method="GET">
+    <form th:action="@{/showInformation}" th:object="${userDTO}"
+          method="POST">
 
         <h3>Type user's ID:</h3>
 
-        <input type="text" field="userId" />
+        <input type="text" th:field="*{id}"/>
         <br/>
 
-        <br/>
-        <input type="submit" value="Show user" />
-        <br/>
-
-        <error th:if="${fieldsError != null}"
-               th:text="${fieldsError}"}></error>
+        <h3><input type="submit" value="Show user" /></h3>
 
         <error th:if="${invalidIdError != null}"
                th:text="${invalidIdError}"}></error>
 
-        <positive th:if="${userToShow} != null"
-                  th:text="${userToShow.name}"}></positive>
-
+        <positive th:if="${user != null &&
+            invalidIdError == null}" ></br>
+            Id: <span th:if="${user != null && user.id != null}" th:text="${user.id}"></span></br>
+            Email: <span th:if="${user != null && user.email != null}" th:text="${user.email}"></span></br>
+            Name: <span th:if="${user != null && user.name != null}" th:text="${user.name}"></span></br>
+            Password: <span th:if="${user != null && user.password != null}" th:text="${user.password}"></span></br>
+        </positive>
     </form>
 
     <br/><br/><br/>

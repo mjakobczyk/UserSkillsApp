@@ -7,18 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Value("${welcome.message}")
     private String welcomeMessage;
@@ -71,28 +70,85 @@ public class UserController {
     }
 
     @RequestMapping(value = "/showInformation", method = RequestMethod.GET)
-    public String showUserInformation(Model model,
-                                      @Valid @ModelAttribute("userId") String userId) {
-        model.addAttribute("userId", userId);
-        if (userId == null || userId == "") {
-            model.addAttribute("fieldsError", fieldsError);
-        }
-        UserDTO userDTO = userService.getUserInformation(userId);
-        if (userDTO == null) {
-            model.addAttribute("invalidIdError", invalidIdError);
-        }
-        model.addAttribute("userToShow", userDTO);
+    public String showUserInformationGet(Model model) {
+        model.addAttribute("userDTO", new UserDTO());
         return "showInformation";
     }
 
+    @RequestMapping(value = "/showInformation", method = RequestMethod.POST)
+    public void showUserInformationPost(@Valid @ModelAttribute("userDTO") UserDTO userDTO,
+                                              BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors() ||
+                userDTO == null ||
+                userDTO.getId() == null ||
+                userDTO.getId().equals("") ||
+                userDTO.getId().toString().equals("") ||
+                userDTO.getId().toString() == null ||
+                userDTO.getId().toString().length() < 2) {
+            model.addAttribute("invalidIdError", invalidIdError);
+        }
+        else {
+            UserDTO user = userService.getUserInformation(userDTO.getId().toString());
+            model.addAttribute("user", user);
+        }
+
+        return;
+    }
+
     @RequestMapping(value = "/showDetails", method = RequestMethod.GET)
-    public String showUserDetails(Model model) {
+    public String showUserDetailsGet(Model model) {
+        model.addAttribute("userDTO", new UserDTO());
         return "showDetails";
     }
 
+    @RequestMapping(value = "/showDetails", method = RequestMethod.POST)
+    public void showUserDetailsPost(@Valid @ModelAttribute("userDTO") UserDTO userDTO,
+                                      BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors() ||
+                userDTO == null ||
+                userDTO.getId() == null ||
+                userDTO.getId().equals("") ||
+                userDTO.getId().toString().equals("") ||
+                userDTO.getId().toString() == null ||
+                userDTO.getId().toString().length() < 2) {
+            model.addAttribute("invalidIdError", invalidIdError);
+        }
+        else {
+            DetailsDTO detailsDTO = userService.getUserDetails(userDTO.getId().toString());
+            model.addAttribute("details", detailsDTO);
+        }
+
+        return;
+    }
+
     @RequestMapping(value = "/showAllDetails", method = RequestMethod.GET)
-    public String showAllUserDetails(Model model) {
+    public String showAllUserDetailsGet(Model model) {
+        model.addAttribute("userDTO", new UserDTO());
         return "showAllDetails";
+    }
+
+    @RequestMapping(value = "/showAllDetails", method = RequestMethod.POST)
+    public void showAllUserDetailsPost(@Valid @ModelAttribute("userDTO") UserDTO userDTO,
+                                       BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors() ||
+                userDTO == null ||
+                userDTO.getId() == null ||
+                userDTO.getId().equals("") ||
+                userDTO.getId().toString().equals("") ||
+                userDTO.getId().toString() == null ||
+                userDTO.getId().toString().length() < 2) {
+            model.addAttribute("invalidIdError", invalidIdError);
+        }
+        else {
+            DetailsFullDTO detailsFullDTO = userService.getUserFullDetails(userDTO.getId().toString());
+            model.addAttribute("details", detailsFullDTO);
+            UserFullDTO userFullDTO = detailsFullDTO.getUserFullDTO();
+            model.addAttribute("user", userFullDTO);
+            List<SkillDTO> skillDTOList = userFullDTO.getSkillDTOS();
+            model.addAttribute("skills", skillDTOList);
+        }
+
+        return;
     }
 
     @RequestMapping(value = "/updateDetails", method = RequestMethod.GET)

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,37 +27,45 @@ public class SkillController {
     @Value("${fieldsError.message}")
     private String fieldsError;
 
+    @Value("${invalid.message}")
+    private String invalidError;
+
     @RequestMapping(value = "/mainSkills", method = RequestMethod.GET)
     public String getSkills(Model model) {
-        List<SkillDTO> skillDTOArrayList = skillService.getAllSkills();
-        //model.addAttribute(...);
         return "mainSkills";
     }
 
-    @RequestMapping(value = "/addSkill", method = RequestMethod.POST)
-    public String postSkill(@Valid @RequestBody SkillNewDTO skillNewDTO) {
-        skillService.createSkill(skillNewDTO);
+    @RequestMapping(value = "/addSkill", method = RequestMethod.GET)
+    public String addSkill(Model model) {
+        model.addAttribute("newSkill", new SkillNewDTO());
         return "addSkill";
     }
 
-    @RequestMapping(value = "/showSkills", method = RequestMethod.GET)
-    public String showAllSkills(@Valid @RequestBody SkillNewDTO skillNewDTO) {
-        return "showSkills";
+    @RequestMapping(value = "/addSkill", method = RequestMethod.POST)
+    public void addSkill(@Valid @ModelAttribute("newSkill") SkillNewDTO skillNewDTO,
+                              BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors() ||
+                skillNewDTO == null ||
+                skillNewDTO.getSkillName().equals("") ||
+                skillNewDTO.getSkillName() == null ||
+                skillNewDTO.getSkillName().length() < 2) {
+            model.addAttribute("invalid", invalidError);
+        }
+        else {
+            skillService.createSkill(skillNewDTO);
+        }
+        return;
     }
 
+    @RequestMapping(value = "/showSkills", method = RequestMethod.GET)
+    public String showAllSkills(Model model) {
+        List<SkillDTO> skillDTOList = skillService.getAllSkills();
+        model.addAttribute("skills", skillDTOList);
 
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public ResponseEntity<Skill> createSkill(@Valid @RequestBody SkillNewDTO skillNewDTO) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        Skill skill = modelMapper.map(skillNewDTO, Skill.class);
-//        return ResponseEntity.ok(skillService.createSkill(skill));
-//    }
-//
-//    @GetMapping
-//    public List<Skill> getAllSkills() {
-//        return skillService.getAllSkills();
-//    }
-
+        if (skillDTOList == null) {
+            model.addAttribute("invalid", invalidError);
+        }
+        return "showSkills";
+    }
 
 }
