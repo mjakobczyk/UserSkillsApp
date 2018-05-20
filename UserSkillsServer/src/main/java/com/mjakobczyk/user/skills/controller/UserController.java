@@ -71,8 +71,15 @@ public class UserController {
             UserFullDTO userFullDTO = modelMapper.map(user, UserFullDTO.class);
 
             ArrayList<Skill> skills = user.getSkills();
-            java.lang.reflect.Type targetListType = new TypeToken<List<SkillDTO>>() {}.getType();
-            ArrayList<SkillDTO> skillDTOS = modelMapper.map(skills, targetListType);
+//            java.lang.reflect.Type targetListType = new TypeToken<List<SkillDTO>>() {}.getType();
+//            ArrayList<SkillDTO> skillDTOS = modelMapper.map(skills, targetListType);
+            ArrayList<SkillDTO> skillDTOS = new ArrayList<>();
+
+            for (Skill skill : skills) {
+                SkillDTO skillDTO = new SkillDTO();
+                skillDTO.setId(skill.getId());
+                skillDTO.setSkillName(skill.getSkillName());
+            }
 
             userFullDTO.setSkills(skillDTOS);
             detailsFullDTO.setUserFullDTO(userFullDTO);
