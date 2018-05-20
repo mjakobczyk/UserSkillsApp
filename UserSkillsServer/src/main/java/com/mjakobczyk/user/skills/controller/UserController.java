@@ -75,13 +75,6 @@ public class UserController {
             ArrayList<SkillDTO> skillDTOS = modelMapper.map(skills, targetListType);
 
             userFullDTO.setSkills(skillDTOS);
-
-            for (SkillDTO temp : userFullDTO.getSkills()) {
-                if (temp != null) {
-                    System.out.println(temp.getId() + " " + temp.getSkillName());
-                }
-            }
-
             detailsFullDTO.setUserFullDTO(userFullDTO);
             return ResponseEntity.ok(detailsFullDTO);
         }
